@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://du0h70dv8638w"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_dbsie"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dbsie"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dbsie"]
+
+[node name="Main" type="Node3D" unique_id=1473240751]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=816574753]
+transform = Transform3D(64, 0, 0, 0, 64, 0, 0, 0, 64, 0, 0, 0)
+navigation_mesh = SubResource("NavigationMesh_dbsie")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=729967793]
+mesh = SubResource("PlaneMesh_dbsie")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=377171621]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationAgent3D" unique_id=645241255]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_dbsie")

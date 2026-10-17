@@ -3,7 +3,7 @@ extends Node3D
 @onready var area_3d: Area3D = $Area3D
 @onready var camera: Camera3D = $Camera3D
 
-const SPEED = 3 #20
+const SPEED = 20
 const MOUSE_SENSITIVITY = 0.002
 
 var flying : bool
@@ -21,8 +21,8 @@ func _physics_process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not flying:
 		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			rotate_object_local(basis.y, -event.relative.x * MOUSE_SENSITIVITY)
-			rotate_object_local(basis.z, -event.relative.y * MOUSE_SENSITIVITY)
+			rotate(basis.y, -event.relative.x * MOUSE_SENSITIVITY)
+			rotate(basis.x, -event.relative.y * MOUSE_SENSITIVITY)
 		
 		if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:

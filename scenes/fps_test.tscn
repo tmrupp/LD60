@@ -1,0 +1,158 @@
+[gd_scene format=3 uid="uid://cfypcwlaixris"]
+
+[ext_resource type="Texture2D" uid="uid://rpbk4xqjma7b" path="res://icon.svg" id="1_dd8sg"]
+[ext_resource type="Script" uid="uid://dx24bknnw1rqy" path="res://scripts/fps_controller.gd" id="2_3pjy4"]
+[ext_resource type="Script" uid="uid://b77e2uqc1toe0" path="res://scripts/player_shoot.gd" id="3_3pjy4"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rp24y"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_m13n5"]
+sky_material = SubResource("ProceduralSkyMaterial_rp24y")
+
+[sub_resource type="Environment" id="Environment_f0rpb"]
+background_mode = 2
+sky = SubResource("Sky_m13n5")
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eav63"]
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7p757"]
+albedo_color = Color(0.19793725, 0.19793722, 0.19793722, 1)
+albedo_texture = ExtResource("1_dd8sg")
+uv1_scale = Vector3(10, 10, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sfylq"]
+material = SubResource("StandardMaterial3D_7p757")
+size = Vector2(10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sfylq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_sfylq"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_eav63"]
+height = 1.0
+radius = 0.25
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_eav63"]
+top_radius = 0.25
+bottom_radius = 0.25
+height = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_eav63"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_eav63"]
+radius = 0.25
+
+[node name="Node3D" type="Node3D" unique_id=1812552037]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1736143323]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1347111403]
+environment = SubResource("Environment_f0rpb")
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1007395787]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=992139720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_eav63")
+
+[node name="Plane" type="MeshInstance3D" parent="Ground" unique_id=828510783]
+mesh = SubResource("PlaneMesh_sfylq")
+
+[node name="Obstacle" type="StaticBody3D" parent="." unique_id=235678246]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.957915, 0.5, 0.6148701)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle" unique_id=1147504516]
+shape = SubResource("BoxShape3D_sfylq")
+
+[node name="Cube" type="MeshInstance3D" parent="Obstacle" unique_id=1679710373]
+mesh = SubResource("BoxMesh_sfylq")
+
+[node name="Obstacle2" type="StaticBody3D" parent="." unique_id=503965612]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1459842, 0.5, -2.4973297)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle2" unique_id=1548283199]
+shape = SubResource("BoxShape3D_sfylq")
+
+[node name="Cube" type="MeshInstance3D" parent="Obstacle2" unique_id=1573737122]
+mesh = SubResource("BoxMesh_sfylq")
+
+[node name="Obstacle3" type="StaticBody3D" parent="." unique_id=2078429556]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0755491, 0.5, 3.4559398)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle3" unique_id=386194410]
+shape = SubResource("BoxShape3D_sfylq")
+
+[node name="Cube" type="MeshInstance3D" parent="Obstacle3" unique_id=717099230]
+mesh = SubResource("BoxMesh_sfylq")
+
+[node name="Obstacle4" type="StaticBody3D" parent="." unique_id=345602552]
+transform = Transform3D(0.89975137, 0, 0.4364029, 0, 1, 0, -0.4364029, 0, 0.89975137, -2.7574525, 0.5, -1.8362217)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle4" unique_id=2117680580]
+shape = SubResource("BoxShape3D_sfylq")
+
+[node name="Cube" type="MeshInstance3D" parent="Obstacle4" unique_id=1289766349]
+mesh = SubResource("BoxMesh_sfylq")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=43097176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("2_3pjy4")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=982455460]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="PlayerShoot" type="Node3D" parent="CharacterBody3D" unique_id=172436193]
+script = ExtResource("3_3pjy4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=2053373609]
+shape = SubResource("CylinderShape3D_eav63")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1200618347]
+mesh = SubResource("CylinderMesh_eav63")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1601971773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("SphereMesh_eav63")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1435056404]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("SphereShape3D_eav63")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1126576776]
+
+[node name="Reticle" type="Control" parent="CanvasLayer" unique_id=1438162270]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_behavior_recursive = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Reticle" unique_id=529606629]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2

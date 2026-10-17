@@ -1,16 +1,17 @@
 extends CharacterBody3D
 
-@export var movement_speed: float = 4.0
+@export var movement_speed: float = 2.0
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
 func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
-	set_movement_target($"../GOAL".position)
+	set_movement_target($"../Player".position)
 
 func set_movement_target(movement_target: Vector3):
 	navigation_agent.set_target_position(movement_target)
 
 func _physics_process(delta):
+	set_movement_target($"../Player".position)
 	# Do not query when the map has never synchronized and is empty.
 	if NavigationServer3D.map_get_iteration_id(navigation_agent.get_navigation_map()) == 0:
 		return

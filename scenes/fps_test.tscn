@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://rpbk4xqjma7b" path="res://icon.svg" id="1_dd8sg"]
 [ext_resource type="Script" uid="uid://dx24bknnw1rqy" path="res://scripts/fps_controller.gd" id="2_3pjy4"]
 [ext_resource type="Script" uid="uid://b77e2uqc1toe0" path="res://scripts/player_shoot.gd" id="3_3pjy4"]
+[ext_resource type="PackedScene" uid="uid://bjkejmyoyh5df" path="res://scenes/saloon_light.tscn" id="3_v4oks"]
+[ext_resource type="PackedScene" uid="uid://b24gcksf13ljw" path="res://scenes/bottle.tscn" id="4_5kees"]
+[ext_resource type="Material" uid="uid://dofq1rnpcr2ux" path="res://countdown_spinner.tres" id="6_v3wg6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rp24y"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -13,6 +16,7 @@ sky_material = SubResource("ProceduralSkyMaterial_rp24y")
 
 [sub_resource type="Environment" id="Environment_f0rpb"]
 background_mode = 2
+background_energy_multiplier = 0.7
 sky = SubResource("Sky_m13n5")
 glow_enabled = true
 
@@ -36,6 +40,9 @@ size = Vector2(10, 10)
 height = 1.0
 radius = 0.25
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_eav63"]
+radius = 0.25
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_eav63"]
 top_radius = 0.25
 bottom_radius = 0.25
@@ -45,13 +52,11 @@ height = 1.0
 radius = 0.25
 height = 0.5
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_eav63"]
-radius = 0.25
-
 [node name="Node3D" type="Node3D" unique_id=1812552037]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1736143323]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_energy = 0.25
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1347111403]
@@ -64,6 +69,56 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_eav63")
 
 [node name="Plane" type="MeshInstance3D" parent="Ground" unique_id=828510783]
+mesh = SubResource("PlaneMesh_sfylq")
+
+[node name="Ground2" type="StaticBody3D" parent="." unique_id=466505929]
+transform = Transform3D(-1, -8.742278e-08, 0, 8.742278e-08, -1, 0, 0, 0, 1, 0, 5.827636, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground2" unique_id=560198448]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_eav63")
+
+[node name="Plane" type="MeshInstance3D" parent="Ground2" unique_id=1099682302]
+mesh = SubResource("PlaneMesh_sfylq")
+
+[node name="Wall1" type="StaticBody3D" parent="." unique_id=124539052]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 5, 0.4277234, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall1" unique_id=929810980]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_eav63")
+
+[node name="Plane" type="MeshInstance3D" parent="Wall1" unique_id=1774421780]
+mesh = SubResource("PlaneMesh_sfylq")
+
+[node name="Wall4" type="StaticBody3D" parent="." unique_id=881189536]
+transform = Transform3D(4.371139e-08, 1, -8.742278e-08, 1, -4.371139e-08, 0, -3.821371e-15, -8.742278e-08, -1, -5, 0.4277234, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4" unique_id=966066255]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_eav63")
+
+[node name="Plane" type="MeshInstance3D" parent="Wall4" unique_id=2080147932]
+mesh = SubResource("PlaneMesh_sfylq")
+
+[node name="Wall2" type="StaticBody3D" parent="." unique_id=1046329173]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, 1, 1, -4.371139e-08, 0, 4.371139e-08, 1, -4.371139e-08, 0, 0.4277234, -5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2" unique_id=771385733]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_eav63")
+
+[node name="Plane" type="MeshInstance3D" parent="Wall2" unique_id=615787305]
+mesh = SubResource("PlaneMesh_sfylq")
+
+[node name="Wall3" type="StaticBody3D" parent="." unique_id=1272033340]
+transform = Transform3D(1.9106855e-15, 4.3711385e-08, -0.99999994, 1, -4.3711385e-08, 0, -4.371139e-08, -0.99999994, -4.3711385e-08, 0, 0.4277234, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3" unique_id=1002198595]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_eav63")
+
+[node name="Plane" type="MeshInstance3D" parent="Wall3" unique_id=1930429642]
 mesh = SubResource("PlaneMesh_sfylq")
 
 [node name="Obstacle" type="StaticBody3D" parent="." unique_id=235678246]
@@ -102,6 +157,36 @@ shape = SubResource("BoxShape3D_sfylq")
 [node name="Cube" type="MeshInstance3D" parent="Obstacle4" unique_id=1289766349]
 mesh = SubResource("BoxMesh_sfylq")
 
+[node name="bottle" parent="." unique_id=926646830 instance=ExtResource("4_5kees")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9499664, 1.1499997, -2.3780174)
+
+[node name="bottle2" parent="." unique_id=766422023 instance=ExtResource("4_5kees")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.6017203, 1.1499995, -1.7591066)
+
+[node name="bottle3" parent="." unique_id=1538337512 instance=ExtResource("4_5kees")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9900427, 1.1499995, 3.5368447)
+
+[node name="bottle4" parent="." unique_id=2044017519 instance=ExtResource("4_5kees")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.717327, 1.1499995, 0.4302678)
+
+[node name="bottle5" parent="." unique_id=647978944 instance=ExtResource("4_5kees")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1852233, 1.1499995, 0.8025937)
+
+[node name="saloon_light" parent="." unique_id=902514638 instance=ExtResource("3_v4oks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+
+[node name="saloon_light2" parent="." unique_id=1534487426 instance=ExtResource("3_v4oks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0952497, 3.5, 2.214098)
+
+[node name="saloon_light3" parent="." unique_id=1056419551 instance=ExtResource("3_v4oks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.1171136, 3.5, 2.4001732)
+
+[node name="saloon_light4" parent="." unique_id=1961373545 instance=ExtResource("3_v4oks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.35538, 3.5, -3.1665373)
+
+[node name="saloon_light5" parent="." unique_id=1128083468 instance=ExtResource("3_v4oks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.57023, 3.5, -3.539505)
+
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=43097176]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 script = ExtResource("2_3pjy4")
@@ -115,16 +200,16 @@ script = ExtResource("3_3pjy4")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=2053373609]
 shape = SubResource("CylinderShape3D_eav63")
 
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1435056404]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("SphereShape3D_eav63")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1200618347]
 mesh = SubResource("CylinderMesh_eav63")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1601971773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 mesh = SubResource("SphereMesh_eav63")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1435056404]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-shape = SubResource("SphereShape3D_eav63")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1126576776]
 
@@ -156,3 +241,29 @@ offset_right = 2.0
 offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1196223104]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control" unique_id=2013459838]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 30
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer" unique_id=440558507]
+material = ExtResource("6_v3wg6")
+layout_mode = 2
+texture = ExtResource("1_dd8sg")

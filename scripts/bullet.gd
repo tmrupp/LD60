@@ -23,18 +23,24 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			rotate(basis.y, -event.relative.x * MOUSE_SENSITIVITY)
 			rotate(basis.x, -event.relative.y * MOUSE_SENSITIVITY)
-		
-		if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
-			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			basis = basis.orthonormalized()
 		
 		if event.is_action_pressed("shoot"):
 			flying = true
+	
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_body_entered(other : Node3D):
 	if ignore_collision != null and other == ignore_collision:
 		return
 	print("body entered: ", other.name)
 	flying = false
+	
+	ignore_collision = other
+	
+	if "receive_impact" in other:
+		other.receive_impact(Vector3.ZERO)

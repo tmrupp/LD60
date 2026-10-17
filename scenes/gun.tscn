@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://0mmgjq7gury5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7p1mj"]
+albedo_color = Color(0.38, 0.38, 0.38, 1)
+metallic = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dbsie"]
+material = SubResource("StandardMaterial3D_7p1mj")
+
+[node name="Gun" type="MeshInstance3D" unique_id=1767836]
+mesh = SubResource("CylinderMesh_dbsie")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1455734792]
+transform = Transform3D(1, 0, 0, 0, -8.742278e-08, 1, 0, -2, -4.371139e-08, 0, 0.5, -1.5)
+mesh = SubResource("CylinderMesh_dbsie")

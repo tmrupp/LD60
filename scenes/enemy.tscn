@@ -1,19 +1,65 @@
 [gd_scene format=3 uid="uid://uv20w0ekd2ym"]
 
 [ext_resource type="Script" uid="uid://ryxd0c0f1nvh" path="res://scripts/enemy.gd" id="1_7p1mj"]
+[ext_resource type="PackedScene" uid="uid://0mmgjq7gury5" path="res://scenes/gun.tscn" id="2_md0e3"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dbsie"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7p1mj"]
+height = 1.0
+radius = 0.25
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_dbsie"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_md0e3"]
+radius = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4w8v"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4ra3w"]
+material = SubResource("StandardMaterial3D_c4w8v")
+top_radius = 0.25
+bottom_radius = 0.25
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xwavj"]
+albedo_color = Color(1, 0.57, 0.57, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_5uy6h"]
+material = SubResource("StandardMaterial3D_xwavj")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dbsie"]
 
 [node name="Enemy" type="CharacterBody3D" unique_id=825712085]
 script = ExtResource("1_7p1mj")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1929284046]
-shape = SubResource("CapsuleShape3D_dbsie")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=222682429]
-mesh = SubResource("CapsuleMesh_dbsie")
+[node name="Gun" parent="." unique_id=1767836 instance=ExtResource("2_md0e3")]
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0.34, -0.315)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1965811864]
 avoidance_enabled = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1869512918]
+shape = SubResource("CylinderShape3D_7p1mj")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=1276693002]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("SphereShape3D_md0e3")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1918767212]
+mesh = SubResource("CylinderMesh_4ra3w")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=2019321128]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("SphereMesh_5uy6h")
+
+[node name="GunRange" type="Area3D" parent="." unique_id=1955097280]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GunRange" unique_id=1592924596]
+shape = SubResource("SphereShape3D_dbsie")
+
+[node name="ThrowRange" type="Area3D" parent="." unique_id=1416587669]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ThrowRange" unique_id=388158839]
+shape = SubResource("SphereShape3D_dbsie")

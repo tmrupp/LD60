@@ -1,10 +1,9 @@
 [gd_scene format=3 uid="uid://cfypcwlaixris"]
 
 [ext_resource type="Texture2D" uid="uid://rpbk4xqjma7b" path="res://icon.svg" id="1_dd8sg"]
-[ext_resource type="Script" uid="uid://dx24bknnw1rqy" path="res://scripts/fps_controller.gd" id="2_3pjy4"]
-[ext_resource type="Script" uid="uid://b77e2uqc1toe0" path="res://scripts/player_shoot.gd" id="3_3pjy4"]
 [ext_resource type="PackedScene" uid="uid://bjkejmyoyh5df" path="res://scenes/saloon_light.tscn" id="3_v4oks"]
 [ext_resource type="PackedScene" uid="uid://b24gcksf13ljw" path="res://scenes/bottle.tscn" id="4_5kees"]
+[ext_resource type="PackedScene" uid="uid://cjbk8753ikjf3" path="res://scenes/real_player.tscn" id="4_v3wg6"]
 [ext_resource type="Material" uid="uid://dofq1rnpcr2ux" path="res://countdown_spinner.tres" id="6_v3wg6"]
 [ext_resource type="PackedScene" uid="uid://uv20w0ekd2ym" path="res://scenes/enemy.tscn" id="7_16jfv"]
 
@@ -46,22 +45,6 @@ background_mode = 2
 background_energy_multiplier = 0.7
 sky = SubResource("Sky_m13n5")
 glow_enabled = true
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_eav63"]
-height = 1.0
-radius = 0.25
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_eav63"]
-radius = 0.25
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_eav63"]
-top_radius = 0.25
-bottom_radius = 0.25
-height = 1.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_eav63"]
-radius = 0.25
-height = 0.5
 
 [node name="Node3D" type="Node3D" unique_id=1812552037]
 
@@ -219,29 +202,8 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1347111403]
 environment = SubResource("Environment_f0rpb")
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=43097176]
+[node name="Player" parent="." unique_id=1165423411 instance=ExtResource("4_v3wg6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-script = ExtResource("2_3pjy4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=2053373609]
-shape = SubResource("CylinderShape3D_eav63")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Player" unique_id=1435056404]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-shape = SubResource("SphereShape3D_eav63")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=1200618347]
-mesh = SubResource("CylinderMesh_eav63")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Player" unique_id=1601971773]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-mesh = SubResource("SphereMesh_eav63")
-
-[node name="Camera3D" type="Camera3D" parent="Player" unique_id=982455460]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
-
-[node name="PlayerShoot" type="Node3D" parent="Player" unique_id=172436193]
-script = ExtResource("3_3pjy4")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1126576776]
 

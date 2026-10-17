@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dofq1rnpcr2ux"]
+
+[ext_resource type="Shader" uid="uid://qtupju1l8oow" path="res://countdown_spinner.gdshader" id="1_ttudx"]
+
+[resource]
+shader = ExtResource("1_ttudx")
+shader_parameter/limit = 0.105

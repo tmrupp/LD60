@@ -16,7 +16,7 @@ var shooting = false
 func die ():
 	queue_free()
 
-func receive_impact(v: Vector3):
+func receive_impact():
 	print("struck")
 	if has_node("Bandana"):
 		$Bandana/Bouncable.bounce(Vector3.UP)

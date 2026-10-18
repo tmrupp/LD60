@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var area_3d: Area3D = $Area3D
+@onready var ray_cast_3d: RayCast3D = $RayCast3D
 @onready var camera: Camera3D = $Camera3D
 
 const SPEED = 20
@@ -15,7 +15,6 @@ var camera_pos_during_flight : Vector3
 var camera_pos_during_aiming : Vector3 = Vector3.ZERO
 
 func _ready() -> void:
-	area_3d.body_entered.connect(_on_body_entered)
 	flying = true
 	ignore_collision = null
 	camera_pos_during_flight = camera.position
@@ -23,6 +22,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if flying:
 		position += SPEED * delta * (global_basis * Vector3.FORWARD)
+		if ray_cast_3d.is_colliding():
+			on_raycast_collision()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not flying:
@@ -42,6 +43,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 			var tween = get_tree().create_tween().bind_node(self)
 			tween.tween_property(camera, "position", camera_pos_during_flight, 0.1)
+	else: # if flying
+		if event.is_action_pressed("recall"):
+			pass
 	
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -50,7 +54,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 var body 
-func _on_body_entered(other : Node3D):
+func on_raycast_collision():
+	var other = ray_cast_3d.get_collider()
+	
 	if ignore_collision != null and other == ignore_collision:
 		return
 	
@@ -64,7 +70,7 @@ func _on_body_entered(other : Node3D):
 	ignore_collision = other
 	
 	if "receive_impact" in other:
-		other.receive_impact(Vector3.ZERO)
+		other.receive_impact()
 	
 	# begin moving the camera to the position offset used for aiming
 	var tween = get_tree().create_tween().bind_node(self)

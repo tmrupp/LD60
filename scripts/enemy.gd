@@ -10,6 +10,9 @@ extends CharacterBody3D
 
 var shooting = false
 
+func receive_impact(v: Vector3):
+	print("struck")
+
 func _range_entered (body):
 	if body == player:
 		shooting = true
@@ -28,10 +31,6 @@ func _ready() -> void:
 	
 	if $GunRange.has_overlapping_bodies() and player in $GunRange.get_overlapping_bodies():
 		_range_entered(player)
-		
-	
-func _gun_hit ():
-	pass
 
 func set_movement_target(movement_target: Vector3):
 	navigation_agent.set_target_position(movement_target)

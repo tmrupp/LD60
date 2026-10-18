@@ -11,6 +11,7 @@ metallic = 1.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_dbsie"]
 material = SubResource("StandardMaterial3D_7p1mj")
+height = 2.4873047
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0u1y2"]
 albedo_color = Color(0.38, 0.38, 0.38, 1)
@@ -25,12 +26,13 @@ sleeping = true
 [node name="Bouncable" parent="." unique_id=1353496270 instance=ExtResource("1_x77fm")]
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1072870561]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.028717041, -1.4228516)
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
 shape = SubResource("BoxShape3D_jkc6a")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1455734792]
-transform = Transform3D(1, 0, 0, 0, -8.742278e-08, 1, 0, -2, -4.371139e-08, 0, 0.5, -1.5)
+transform = Transform3D(0.12, 0, 0, 0, -5.2453664e-09, 0.12, 0, -0.12, -5.2453664e-09, 0, 0.06268681, 0.02923828)
 mesh = SubResource("CylinderMesh_dbsie")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1761005283]
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0.11815089)
 mesh = SubResource("CylinderMesh_jkc6a")

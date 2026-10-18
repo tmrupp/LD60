@@ -41,10 +41,23 @@ func _range_exited (body):
 		print("cannot hit player")
 
 func shoot ():
-	$Gun/Shootable.shoot()
+	if has_node("Gun"):
+		$Gun/Shootable.shoot()
+	else:
+		#throw()
+		shooting = false
+		timer.timeout.disconnect(shoot)
+		timer.timeout.connect(throw)
+		$ThrowRange.connect("body_entered", _range_entered)
+		$ThrowRange.connect("body_exited", _range_exited)
+		
 	
 func throw ():
-	pass
+	var bottle = bottle_scene.instantiate()
+	get_tree().root.add_child(bottle)
+	bottle.global_position = global_position
+	bottle.global_rotation = global_rotation
+	bottle.throw.call_deferred(self, player.global_position)
 
 func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))

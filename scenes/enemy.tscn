@@ -34,6 +34,7 @@ script = ExtResource("1_7p1mj")
 
 [node name="Gun" parent="." unique_id=1767836 instance=ExtResource("2_md0e3")]
 transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0.34, -0.315)
+sleeping = true
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1965811864]
 avoidance_enabled = true

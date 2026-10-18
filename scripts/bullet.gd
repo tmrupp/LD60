@@ -26,6 +26,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			basis = basis.orthonormalized()
 		
 		if event.is_action_pressed("shoot"):
+			if body.has_node("Bouncable"):
+				var bouncable = body.get_node("Bouncable")
+				bouncable.bounce(self)
+				print("shot a bouncable")
 			flying = true
 	
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
@@ -34,10 +38,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+var body 
 func _on_body_entered(other : Node3D):
 	if ignore_collision != null and other == ignore_collision:
 		return
 	print("body entered: ", other.name)
+	body = other
 	flying = false
 	
 	ignore_collision = other

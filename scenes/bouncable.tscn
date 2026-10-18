@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://qj6nxj26wqfy"]
+
+[ext_resource type="Script" uid="uid://byl30dxkg2vuk" path="res://scripts/bouncable.gd" id="1_hqj0m"]
+
+[node name="Bouncable" type="Node" unique_id=1353496270]
+script = ExtResource("1_hqj0m")

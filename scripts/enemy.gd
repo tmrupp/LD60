@@ -8,10 +8,22 @@ extends CharacterBody3D
 
 @onready var player = $"../Player"
 
+#@onready var hat = $Hat
+#@onready var bandana = $Bandana
+
 var shooting = false
+
+func die ():
+	queue_free()
 
 func receive_impact(v: Vector3):
 	print("struck")
+	if has_node("Bandana"):
+		$Bandana/Bouncable.bounce(Vector3.UP)
+	elif has_node("Hat"):
+		$Hat/Bouncable.bounce(Vector3.UP)
+	else:
+		die()
 
 func _range_entered (body):
 	if body == player:

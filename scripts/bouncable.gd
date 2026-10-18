@@ -23,4 +23,7 @@ func bounce (bullet):
 	#body.apply_force()
 	body.reparent(main)
 	body.freeze = false
-	body.apply_impulse(bullet.basis.z*BULLET_FORCE, bullet.global_position)
+	if bullet is Vector3:
+		body.apply_impulse(bullet*BULLET_FORCE, body.global_position)
+	else:
+		body.apply_impulse(bullet.basis.z*BULLET_FORCE, bullet.global_position)

@@ -32,7 +32,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			basis = basis.orthonormalized()
 		
 		if event.is_action_pressed("shoot"):
-			if body.has_node("Bouncable"):
+			if body and body.has_node("Bouncable"):
 				var bouncable = body.get_node("Bouncable")
 				bouncable.bounce(self)
 				print("shot a bouncable")

@@ -11,10 +11,14 @@ var ignore_collision : Node3D
 var on_bullet_hit_callback : Variant = null
 var on_bullet_ricochet_callback : Variant = null
 
+var camera_pos_during_flight : Vector3
+var camera_pos_during_aiming : Vector3 = Vector3.ZERO
+
 func _ready() -> void:
 	area_3d.body_entered.connect(_on_body_entered)
 	flying = true
 	ignore_collision = null
+	camera_pos_during_flight = camera.position
 
 func _physics_process(delta: float) -> void:
 	if flying:
@@ -35,6 +39,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			flying = true
 			if on_bullet_hit_callback != null:
 				on_bullet_ricochet_callback.call()
+			
+			var tween = get_tree().create_tween().bind_node(self)
+			tween.tween_property(camera, "position", camera_pos_during_flight, 0.1)
 	
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -58,3 +65,7 @@ func _on_body_entered(other : Node3D):
 	
 	if "receive_impact" in other:
 		other.receive_impact(Vector3.ZERO)
+	
+	# begin moving the camera to the position offset used for aiming
+	var tween = get_tree().create_tween().bind_node(self)
+	tween.tween_property(camera, "position", camera_pos_during_aiming, 0.1)

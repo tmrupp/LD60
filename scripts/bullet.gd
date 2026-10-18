@@ -8,6 +8,8 @@ const MOUSE_SENSITIVITY = 0.002
 
 var flying : bool
 var ignore_collision : Node3D
+var on_bullet_hit_callback : Variant = null
+var on_bullet_ricochet_callback : Variant = null
 
 func _ready() -> void:
 	area_3d.body_entered.connect(_on_body_entered)
@@ -31,6 +33,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				bouncable.bounce(self)
 				print("shot a bouncable")
 			flying = true
+			if on_bullet_hit_callback != null:
+				on_bullet_ricochet_callback.call()
 	
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -42,6 +46,10 @@ var body
 func _on_body_entered(other : Node3D):
 	if ignore_collision != null and other == ignore_collision:
 		return
+	
+	if on_bullet_hit_callback != null:
+		on_bullet_hit_callback.call()
+	
 	print("body entered: ", other.name)
 	body = other
 	flying = false

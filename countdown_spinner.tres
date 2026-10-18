@@ -4,7 +4,7 @@
 
 [resource]
 shader = ExtResource("1_ttudx")
-shader_parameter/limit = 1.035
+shader_parameter/limit = 1.0
 shader_parameter/color_1 = Color(0, 0.5137255, 0, 1)
 shader_parameter/color_2 = Color(0.6392157, 0.56078434, 0, 1)
 shader_parameter/color_3 = Color(0.7647059, 0, 0, 1)

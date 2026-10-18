@@ -7,6 +7,7 @@
 [ext_resource type="Material" uid="uid://dofq1rnpcr2ux" path="res://countdown_spinner.tres" id="6_v3wg6"]
 [ext_resource type="Script" uid="uid://ctjbb0th27fb5" path="res://scripts/spawner.gd" id="7_0dqvb"]
 [ext_resource type="PackedScene" uid="uid://uv20w0ekd2ym" path="res://scenes/enemy.tscn" id="7_16jfv"]
+[ext_resource type="Script" uid="uid://3qpapyh7rpy1" path="res://scripts/timer_ui.gd" id="7_icbkw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0dqvb"]
 size = Vector3(40, 0.5, 40)
@@ -270,9 +271,11 @@ grow_horizontal = 2
 theme_override_constants/margin_top = 30
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer" unique_id=440558507]
+visible = false
 material = ExtResource("6_v3wg6")
 layout_mode = 2
 texture = ExtResource("1_dd8sg")
+script = ExtResource("7_icbkw")
 
 [node name="Spawner" type="CSGBox3D" parent="." unique_id=418571448]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.007553, 1.2173085, 15.112506)

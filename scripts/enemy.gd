@@ -3,10 +3,13 @@ extends CharacterBody3D
 @export var movement_speed: float = 2.0
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 
-@onready var bottle_scene = "res://scenes/bottle.tscn"
+@onready var bottle_scene = preload("res://scenes/bottle.tscn")
 @onready var gun = $Gun
 
 @onready var player = $"../Player"
+@onready var timer = $Timer
+
+var FIRE_RATE = 4.0
 
 #@onready var hat = $Hat
 #@onready var bandana = $Bandana
@@ -17,7 +20,7 @@ func die ():
 	queue_free()
 
 func receive_impact():
-	print("struck")
+	#print("struck")
 	if has_node("Bandana"):
 		$Bandana/Bouncable.bounce(Vector3.UP)
 	elif has_node("Hat"):
@@ -29,12 +32,19 @@ func _range_entered (body):
 	if body == player:
 		shooting = true
 		navigation_agent.set_velocity(Vector3.ZERO)
+		timer.start()
 		print("can hit player")
 		
 func _range_exited (body):
 	if body == player:
 		shooting = false
 		print("cannot hit player")
+
+func shoot ():
+	$Gun/Shootable.shoot()
+	
+func throw ():
+	pass
 
 func _ready() -> void:
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
@@ -43,6 +53,9 @@ func _ready() -> void:
 	
 	if $GunRange.has_overlapping_bodies() and player in $GunRange.get_overlapping_bodies():
 		_range_entered(player)
+		
+	timer.wait_time = FIRE_RATE
+	timer.timeout.connect(shoot)
 
 func set_movement_target(movement_target: Vector3):
 	navigation_agent.set_target_position(movement_target)

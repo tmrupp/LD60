@@ -36,7 +36,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if body and body.has_node("Bouncable"):
 				var bouncable = body.get_node("Bouncable")
 				bouncable.bounce(self)
-				print("shot a bouncable")
+				#print("shot a bouncable")
 			flying = true
 			if on_bullet_hit_callback != null:
 				on_bullet_ricochet_callback.call()

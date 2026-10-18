@@ -20,7 +20,6 @@ func _ready ():
 
 func bounce (bullet):
 	print("bounce from transform:", bullet)
-	#body.apply_force()
 	body.reparent(main)
 	body.freeze = false
 	if bullet is Vector3:

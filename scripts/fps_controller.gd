@@ -24,6 +24,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+				
+func receive_impact ():
+	#queue_free.call_deferred()
+	print("ouch!")
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

@@ -28,10 +28,10 @@ radius = 0.100097656
 script = ExtResource("1_7p1mj")
 
 [node name="COWBOY" parent="." unique_id=2050514504 instance=ExtResource("2_xwavj")]
-transform = Transform3D(-0.23, 0, -2.0107239e-08, 0, 0.23, 0, 2.0107239e-08, 0, -0.23, 0, 0, 0)
+transform = Transform3D(-0.19029738, 0, 0.12917782, 0, 0.23, 0, -0.12917782, 0, -0.19029738, 0.0009360712, 0, 0.00028770033)
 
 [node name="Gun" parent="." unique_id=1767836 instance=ExtResource("2_md0e3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.23343813, 0.99553406, -0.43594024)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00043857098, 0.99553406, -0.48391086)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1965811864]
 avoidance_enabled = true
@@ -57,7 +57,7 @@ transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
 shape = SubResource("SphereShape3D_dbsie")
 
 [node name="Hat" type="RigidBody3D" parent="." unique_id=962045099]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.355, 0)
+transform = Transform3D(0.8273798, 0, -0.56164277, 0, 1, 0, 0.56164277, 0, 0.8273798, 0.0009360712, 1.355, 0.00028770033)
 
 [node name="Bouncable" parent="Hat" unique_id=1353496270 instance=ExtResource("3_4ra3w")]
 
@@ -69,7 +69,7 @@ shape = SubResource("CylinderShape3D_0u1y2")
 transform = Transform3D(-0.1, 0, -1.509958e-08, 0, 0.1, 0, 1.509958e-08, 0, -0.1, 0, -0.016231418, 0.018436268)
 
 [node name="Bandana" type="RigidBody3D" parent="." unique_id=841138261]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.252, 0.005)
+transform = Transform3D(0.8273798, 0, -0.56164277, 0, 1, 0, 0.56164277, 0, 0.8273798, -0.0018721425, 1.252, 0.0044245995)
 
 [node name="BANDANA2" parent="Bandana" unique_id=608401005 instance=ExtResource("6_md484")]
 transform = Transform3D(-0.11, 0, -9.616506e-09, 0, 0.11, 0, 9.616506e-09, 0, -0.11, 0, 0, 0)
@@ -81,3 +81,5 @@ transform = Transform3D(1, 0, 0, 0, 0.94551855, -0.32556817, 0, 0.32556817, 0.94
 shape = SubResource("CylinderShape3D_02ppr")
 
 [node name="Timer" type="Timer" parent="." unique_id=1935379131]
+
+[editable path="COWBOY"]

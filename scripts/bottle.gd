@@ -18,7 +18,7 @@ func _ready() -> void:
 	# 2. Connect the signal to your function programmatically
 	body_entered.connect(_on_body_entered)
 
-func _on_body_entered(body: Node) -> void:
+func _on_body_entered(_body: Node) -> void:
 	if thrown:
 		queue_free()
 

@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://ctjbb0th27fb5" path="res://scripts/spawner.gd" id="7_0dqvb"]
 [ext_resource type="PackedScene" uid="uid://uv20w0ekd2ym" path="res://scenes/enemy.tscn" id="7_16jfv"]
 [ext_resource type="Script" uid="uid://3qpapyh7rpy1" path="res://scripts/timer_ui.gd" id="7_icbkw"]
+[ext_resource type="Shader" uid="uid://sq7naaktntwi" path="res://damage_effect.gdshader" id="8_ifect"]
+[ext_resource type="Script" uid="uid://cxmnjr0jr3arl" path="res://scripts/match_pos_angle.gd" id="10_eeafu"]
 [ext_resource type="PackedScene" uid="uid://bancd3u27tiuo" path="res://scenes/table.tscn" id="10_wklry"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0dqvb"]
@@ -46,6 +48,13 @@ background_mode = 2
 background_energy_multiplier = 0.7
 sky = SubResource("Sky_m13n5")
 glow_enabled = true
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_eav63"]
+viewport_path = NodePath("CanvasLayer/SubCamera/MarginContainer/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eeafu"]
+shader = ExtResource("8_ifect")
+shader_parameter/enabled = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbsie"]
 albedo_color = Color(0.07, 0.07, 0.07, 1)
@@ -384,6 +393,57 @@ safe_margin = 0.01
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.653, 0, 1.71)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1126576776]
+
+[node name="SubCamera" type="Control" parent="CanvasLayer" unique_id=1264444890]
+visible = false
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SubCamera" unique_id=702942067]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubCamera/MarginContainer" unique_id=1907612742]
+size = Vector2i(384, 216)
+
+[node name="Camera3D" type="Camera3D" parent="CanvasLayer/SubCamera/MarginContainer/SubViewport" unique_id=404269884]
+script = ExtResource("10_eeafu")
+follow_me_path = NodePath("/root/Main/Player/Camera3D")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/SubCamera/MarginContainer" unique_id=938264959]
+layout_mode = 2
+texture = SubResource("ViewportTexture_eav63")
+
+[node name="FullScreen" type="Control" parent="CanvasLayer" unique_id=1636812879]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/FullScreen" unique_id=1211671965]
+material = SubResource("ShaderMaterial_eeafu")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="Reticle" type="Control" parent="CanvasLayer" unique_id=1438162270]
 layout_mode = 3

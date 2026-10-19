@@ -1,8 +1,8 @@
 extends StaticBody3D
 
 @onready var break_sfx: AudioStreamPlayer = $BreakSFX
-@onready var light_on: MeshInstance3D = $LightOn
-@onready var light_off: MeshInstance3D = $LightOff
+@onready var light_on: MeshInstance3D = $Light/Bulb
+@onready var light_off: MeshInstance3D = $Light/Bulb2
 @onready var spot_light_3d: SpotLight3D = $SpotLight3D
 
 func receive_impact():

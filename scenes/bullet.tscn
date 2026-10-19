@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bm5yiat4a3kvh"]
 
 [ext_resource type="Script" uid="uid://ccowwdw1s2cp" path="res://scripts/bullet.gd" id="1_mkf8s"]
+[ext_resource type="PackedScene" uid="uid://sc6ktlc2nxh2" path="res://Art/bullet.glb" id="2_y25gk"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v4oks"]
 albedo_color = Color(0.5541429, 0.35213345, 0.2605489, 1)
@@ -22,7 +23,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.056717157, 0.1926086)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=190634763]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+visible = false
 mesh = SubResource("CylinderMesh_sfylq")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=941909154]
 target_position = Vector3(0, 0, -0.5)
+
+[node name="bullet2" parent="." unique_id=1123033225 instance=ExtResource("2_y25gk")]
+transform = Transform3D(-0.03, 0, -2.6226832e-09, 0, 0.03, 0, 2.6226832e-09, 0, -0.03, 0, 0, 0.0347377)

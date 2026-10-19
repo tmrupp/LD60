@@ -1,42 +1,23 @@
 [gd_scene format=3 uid="uid://0mmgjq7gury5"]
 
+[ext_resource type="PackedScene" uid="uid://cstvx5wivx08q" path="res://Art/GUN.glb" id="1_gp1hk"]
 [ext_resource type="PackedScene" uid="uid://qj6nxj26wqfy" path="res://scenes/bouncable.tscn" id="1_x77fm"]
 [ext_resource type="Script" uid="uid://dqa6145mv6n50" path="res://scripts/shootable.gd" id="2_og67c"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jkc6a"]
-size = Vector3(1, 2, 3)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7p1mj"]
-albedo_color = Color(0.38, 0.38, 0.38, 1)
-metallic = 1.0
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_dbsie"]
-material = SubResource("StandardMaterial3D_7p1mj")
-height = 2.4873047
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0u1y2"]
-albedo_color = Color(0.38, 0.38, 0.38, 1)
-metallic = 1.0
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_jkc6a"]
-material = SubResource("StandardMaterial3D_0u1y2")
+size = Vector3(0.40646362, 1.1860962, 3.1848755)
 
 [node name="Gun" type="RigidBody3D" unique_id=1829790528]
 sleeping = true
 
+[node name="GUN" parent="." unique_id=929443146 instance=ExtResource("1_gp1hk")]
+transform = Transform3D(-0.25, 0, 2.1855694e-08, 0, 0.25, 0, -2.1855694e-08, 0, -0.25, 0, 0, 0)
+
 [node name="Bouncable" parent="." unique_id=1353496270 instance=ExtResource("1_x77fm")]
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1072870561]
-transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, -0.045, -0.034)
 shape = SubResource("BoxShape3D_jkc6a")
-
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1455734792]
-transform = Transform3D(0.12, 0, 0, 0, -5.2453664e-09, 0.12, 0, -0.12, -5.2453664e-09, 0, 0.06268681, 0.02923828)
-mesh = SubResource("CylinderMesh_dbsie")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1761005283]
-transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0.11815089)
-mesh = SubResource("CylinderMesh_jkc6a")
 
 [node name="Shootable" type="Node3D" parent="." unique_id=1003289093]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07896085, -0.122693256)

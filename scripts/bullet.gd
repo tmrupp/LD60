@@ -7,6 +7,7 @@ const SPEED = 20
 const MOUSE_SENSITIVITY = 0.002
 
 var flying : bool
+var ready_to_shoot : bool
 var ignore_collision : Node3D
 var on_bullet_hit_callback : Variant = null
 var on_bullet_ricochet_callback : Variant = null
@@ -27,22 +28,24 @@ func _physics_process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not flying:
-		if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			rotate(basis.y, -event.relative.x * MOUSE_SENSITIVITY)
-			rotate(basis.x, -event.relative.y * MOUSE_SENSITIVITY)
-			basis = basis.orthonormalized()
-		
-		if event.is_action_pressed("shoot"):
-			if body and body.has_node("Bouncable"):
-				var bouncable = body.get_node("Bouncable")
-				bouncable.bounce(self)
-				#print("shot a bouncable")
-			flying = true
-			if on_bullet_hit_callback != null:
-				on_bullet_ricochet_callback.call()
+		if ready_to_shoot:
+			if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+				rotate(basis.y, -event.relative.x * MOUSE_SENSITIVITY)
+				rotate(basis.x, -event.relative.y * MOUSE_SENSITIVITY)
+				basis = basis.orthonormalized()
 			
-			var tween = get_tree().create_tween().bind_node(self)
-			tween.tween_property(camera, "position", camera_pos_during_flight, 0.1)
+			if event.is_action_pressed("shoot"):
+				if body and body.has_node("Bouncable"):
+					var bouncable = body.get_node("Bouncable")
+					bouncable.bounce(self)
+					#print("shot a bouncable")
+				flying = true
+				ready_to_shoot = false
+				if on_bullet_hit_callback != null:
+					on_bullet_ricochet_callback.call()
+				
+				var tween = get_tree().create_tween().bind_node(self)
+				tween.tween_property(camera, "position", camera_pos_during_flight, 0.1)
 	else: # if flying
 		if event.is_action_pressed("recall"):
 			pass
@@ -56,6 +59,8 @@ func _unhandled_input(event: InputEvent) -> void:
 var body 
 func on_raycast_collision():
 	var other = ray_cast_3d.get_collider()
+	if other == null:
+		return
 	
 	if ignore_collision != null and other == ignore_collision:
 		return
@@ -65,6 +70,7 @@ func on_raycast_collision():
 	
 	print("body entered: ", other.name)
 	body = other
+	
 	flying = false
 	
 	ignore_collision = other
@@ -75,3 +81,14 @@ func on_raycast_collision():
 	# begin moving the camera to the position offset used for aiming
 	var tween = get_tree().create_tween().bind_node(self)
 	tween.tween_property(camera, "position", camera_pos_during_aiming, 0.1)
+	
+	# begin rotating the bullet to face in the direction of a natural bounce
+	var norm = ray_cast_3d.get_collision_normal()
+	var incident = -global_basis.z
+	tween.set_parallel()
+	tween.tween_property(self, "global_basis", Basis.looking_at(incident.bounce(norm)), 0.1)
+	tween.tween_method(func(_v): global_basis = global_basis.orthonormalized(), 0, 0, 0.1)
+	tween.set_parallel(false)
+	tween.tween_callback(func():
+		ready_to_shoot = true
+	)

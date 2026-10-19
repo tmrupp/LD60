@@ -5,3 +5,5 @@
 .vscode/
 
 Builds/
+
+export_presets.cfg

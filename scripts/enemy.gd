@@ -18,6 +18,7 @@ var shooting = false
 
 func die ():
 	queue_free()
+	$"/root/Main".outlaw_count -= 1
 
 func receive_impact():
 	#print("struck")
@@ -60,6 +61,8 @@ func throw ():
 	bottle.throw.call_deferred(self, player.global_position)
 
 func _ready() -> void:
+	$"/root/Main".outlaw_count += 1
+	
 	navigation_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 	$GunRange.connect("body_entered", _range_entered)
 	$GunRange.connect("body_exited", _range_exited)

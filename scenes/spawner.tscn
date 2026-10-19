@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c3f3ydpqow3hv"]
+
+[ext_resource type="Script" uid="uid://ctjbb0th27fb5" path="res://scripts/spawner.gd" id="1_2vbf6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbsie"]
+albedo_color = Color(0.07, 0.07, 0.07, 1)
+
+[node name="Spawner" type="CSGBox3D" unique_id=130214632]
+size = Vector3(3, 3, 3)
+material = SubResource("StandardMaterial3D_dbsie")
+script = ExtResource("1_2vbf6")

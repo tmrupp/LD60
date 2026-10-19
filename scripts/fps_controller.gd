@@ -32,6 +32,7 @@ func receive_impact ():
 	get_tree().create_timer(0.2).timeout.connect(func():
 		color_rect.material.set_shader_parameter("enabled", false)
 	)
+	$"/root/Main".times_shot += 1
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

@@ -3,7 +3,7 @@ extends Node3D
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
 @onready var camera: Camera3D = $Camera3D
 
-const SPEED = 20
+const SPEED = 10
 const MOUSE_SENSITIVITY = 0.002
 
 var flying : bool
@@ -13,7 +13,7 @@ var on_bullet_hit_callback : Variant = null
 var on_bullet_ricochet_callback : Variant = null
 
 var camera_pos_during_flight : Vector3
-var camera_pos_during_aiming : Vector3 = Vector3.ZERO
+var camera_pos_during_aiming : Vector3 = Vector3(0.0, 0.0, -0.1)
 
 func _ready() -> void:
 	flying = true

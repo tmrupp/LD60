@@ -20,7 +20,7 @@ func shoot():
 	new_bullet.global_rotation = shooter.global_rotation
 	new_bullet.ignore_collision = parent
 	new_bullet.on_bullet_hit_callback = func():
-		timer_ui.start_timer(2.0, func():
+		timer_ui.start_timer(3.0, func():
 			allow_player_shoot = true
 			shooter.make_current()
 			new_bullet.queue_free()

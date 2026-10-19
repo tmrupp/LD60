@@ -1,0 +1,440 @@
+[gd_scene format=3 uid="uid://btpu275xj8gnh"]
+
+[ext_resource type="Script" uid="uid://0ity4mvf4trh" path="res://scripts/main_menu.gd" id="1_5dd4i"]
+[ext_resource type="AudioStream" uid="uid://dumkhgfsrspj1" path="res://glass_hit.wav" id="1_tbmy8"]
+[ext_resource type="PackedScene" uid="uid://bjkejmyoyh5df" path="res://scenes/saloon_light.tscn" id="2_rtw2f"]
+[ext_resource type="PackedScene" uid="uid://dly6fjowi37nv" path="res://Art/BeerBottle.glb" id="3_5dd4i"]
+[ext_resource type="PackedScene" uid="uid://d1tnewkbi8o7o" path="res://Art/LongFloor.glb" id="3_oa1go"]
+[ext_resource type="PackedScene" uid="uid://bancd3u27tiuo" path="res://scenes/table.tscn" id="4_tbmy8"]
+[ext_resource type="PackedScene" uid="uid://cstvx5wivx08q" path="res://Art/GUN.glb" id="5_jk1qb"]
+[ext_resource type="Script" uid="uid://dr7dpk2akcypu" path="res://scripts/tumble.gd" id="6_rtw2f"]
+[ext_resource type="FontFile" uid="uid://dw8ur3ulpk3ac" path="res://Montague.ttf" id="10_lgwnu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5dd4i"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_m13n5"]
+sky_material = SubResource("ProceduralSkyMaterial_5dd4i")
+
+[sub_resource type="Environment" id="Environment_lgwnu"]
+background_mode = 2
+sky = SubResource("Sky_m13n5")
+glow_enabled = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_eav63"]
+height = 0.3
+radius = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7p757"]
+height = 0.2
+radius = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3pjy4"]
+albedo_color = Color(0.42221245, 0.31509352, 0.16314596, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_eav63"]
+material = SubResource("StandardMaterial3D_3pjy4")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a0avw"]
+albedo_color = Color(0.42221245, 0.31509352, 0.16314596, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_sfylq"]
+material = SubResource("StandardMaterial3D_a0avw")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.2
+
+[node name="Node3D" type="Node3D" unique_id=1871172132]
+script = ExtResource("1_5dd4i")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1862896520]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0.90465593, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1492578742]
+environment = SubResource("Environment_lgwnu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=728586381]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_energy = 0.25
+shadow_enabled = true
+
+[node name="bottle" type="RigidBody3D" parent="." unique_id=52557154]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5944984, 0.86611307, -0.23936391)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bottle" unique_id=679438603]
+shape = SubResource("CylinderShape3D_eav63")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="bottle" unique_id=1590849771]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("CylinderShape3D_7p757")
+
+[node name="Body" type="MeshInstance3D" parent="bottle" unique_id=1430613651]
+visible = false
+mesh = SubResource("CylinderMesh_eav63")
+
+[node name="Neck" type="MeshInstance3D" parent="bottle" unique_id=1536740339]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+visible = false
+mesh = SubResource("CylinderMesh_sfylq")
+
+[node name="BreakSFX" type="AudioStreamPlayer" parent="bottle" unique_id=1819985776]
+stream = ExtResource("1_tbmy8")
+
+[node name="BeerBottle2" parent="bottle" unique_id=1402185575 instance=ExtResource("3_5dd4i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+
+[node name="bottle4" type="RigidBody3D" parent="." unique_id=1205073582]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9494817, 0.86600024, -0.37553614)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bottle4" unique_id=401670603]
+shape = SubResource("CylinderShape3D_eav63")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="bottle4" unique_id=726978027]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("CylinderShape3D_7p757")
+
+[node name="Body" type="MeshInstance3D" parent="bottle4" unique_id=2018493320]
+visible = false
+mesh = SubResource("CylinderMesh_eav63")
+
+[node name="Neck" type="MeshInstance3D" parent="bottle4" unique_id=1224150658]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+visible = false
+mesh = SubResource("CylinderMesh_sfylq")
+
+[node name="BreakSFX" type="AudioStreamPlayer" parent="bottle4" unique_id=709146851]
+stream = ExtResource("1_tbmy8")
+
+[node name="BeerBottle2" parent="bottle4" unique_id=131584138 instance=ExtResource("3_5dd4i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+
+[node name="bottle5" type="RigidBody3D" parent="." unique_id=1793187320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0151405, 0.8660005, 0.3937261)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="bottle5" unique_id=1414395452]
+shape = SubResource("CylinderShape3D_eav63")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="bottle5" unique_id=590902246]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("CylinderShape3D_7p757")
+
+[node name="Body" type="MeshInstance3D" parent="bottle5" unique_id=246167753]
+visible = false
+mesh = SubResource("CylinderMesh_eav63")
+
+[node name="Neck" type="MeshInstance3D" parent="bottle5" unique_id=1653940613]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+visible = false
+mesh = SubResource("CylinderMesh_sfylq")
+
+[node name="BreakSFX" type="AudioStreamPlayer" parent="bottle5" unique_id=995677905]
+stream = ExtResource("1_tbmy8")
+
+[node name="BeerBottle2" parent="bottle5" unique_id=547935546 instance=ExtResource("3_5dd4i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+
+[node name="saloon_light" parent="." unique_id=902514638 instance=ExtResource("2_rtw2f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0818207, 2.993327, 0)
+script = null
+
+[node name="WoodPanels" type="Node3D" parent="." unique_id=1322191321]
+
+[node name="LongFloor64" parent="WoodPanels" unique_id=362780072 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.0305476, 0.5, 0)
+
+[node name="LongFloor65" parent="WoodPanels" unique_id=100756231 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.030548, 5.5, 2)
+
+[node name="LongFloor66" parent="WoodPanels" unique_id=2133301345 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.0305476, 0.5, 4)
+
+[node name="LongFloor67" parent="WoodPanels" unique_id=973577746 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.0305486, 5.5, 6)
+
+[node name="LongFloor68" parent="WoodPanels" unique_id=1315367308 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.0305476, 0.5, 8)
+
+[node name="LongFloor69" parent="WoodPanels" unique_id=1179601200 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.030549, 5.5, 10)
+
+[node name="LongFloor70" parent="WoodPanels" unique_id=1830996526 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.0305476, 0.5, 12)
+
+[node name="LongFloor71" parent="WoodPanels" unique_id=1222888772 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.0305495, 5.5, 14)
+
+[node name="LongFloor72" parent="WoodPanels" unique_id=802636270 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.0305476, 0.5, -4)
+
+[node name="LongFloor73" parent="WoodPanels" unique_id=2024677646 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.03055, 5.5, -2)
+
+[node name="LongFloor74" parent="WoodPanels" unique_id=1368410064 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.0305476, 0.5, -8)
+
+[node name="LongFloor75" parent="WoodPanels" unique_id=1655150341 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.0305505, 5.5, -6)
+
+[node name="LongFloor76" parent="WoodPanels" unique_id=971621791 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.0305476, 0.5, -12)
+
+[node name="LongFloor77" parent="WoodPanels" unique_id=1572963410 instance=ExtResource("3_oa1go")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.030551, 5.5, -10)
+
+[node name="LongFloor" parent="WoodPanels" unique_id=885534702 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.2, 0)
+
+[node name="LongFloor2" parent="WoodPanels" unique_id=1893262978 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.2, 2)
+
+[node name="LongFloor3" parent="WoodPanels" unique_id=450366671 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.2, -2)
+
+[node name="LongFloor4" parent="WoodPanels" unique_id=1368565412 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.2, 4)
+
+[node name="LongFloor5" parent="WoodPanels" unique_id=1670928769 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.2, -4)
+
+[node name="LongFloor6" parent="WoodPanels" unique_id=1385594429 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.2, 6)
+
+[node name="LongFloor7" parent="WoodPanels" unique_id=1177702637 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.2, 12)
+
+[node name="LongFloor8" parent="WoodPanels" unique_id=1126967431 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.2, 14)
+
+[node name="LongFloor9" parent="WoodPanels" unique_id=320451454 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.2, 10)
+
+[node name="LongFloor10" parent="WoodPanels" unique_id=918751247 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.2, 16)
+
+[node name="LongFloor11" parent="WoodPanels" unique_id=563591755 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.2, 8)
+
+[node name="LongFloor12" parent="WoodPanels" unique_id=958191552 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.2, 18)
+
+[node name="LongFloor13" parent="WoodPanels" unique_id=1133682497 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.2, -12)
+
+[node name="LongFloor14" parent="WoodPanels" unique_id=653233689 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.2, -10)
+
+[node name="LongFloor15" parent="WoodPanels" unique_id=1355765705 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.2, -14)
+
+[node name="LongFloor16" parent="WoodPanels" unique_id=497579761 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.2, -8)
+
+[node name="LongFloor17" parent="WoodPanels" unique_id=386821284 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.2, -16)
+
+[node name="LongFloor18" parent="WoodPanels" unique_id=607363144 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.2, -6)
+
+[node name="LongFloor19" parent="WoodPanels" unique_id=1453089180 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.2, 0)
+
+[node name="LongFloor20" parent="WoodPanels" unique_id=1571929413 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.2, 2)
+
+[node name="LongFloor21" parent="WoodPanels" unique_id=129362584 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.2, -2)
+
+[node name="LongFloor22" parent="WoodPanels" unique_id=2125865246 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.2, 4)
+
+[node name="LongFloor23" parent="WoodPanels" unique_id=1005665929 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.2, -4)
+
+[node name="LongFloor24" parent="WoodPanels" unique_id=423387107 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.2, 6)
+
+[node name="LongFloor25" parent="WoodPanels" unique_id=725477562 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.2, 12)
+
+[node name="LongFloor26" parent="WoodPanels" unique_id=71440244 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.2, 14)
+
+[node name="LongFloor27" parent="WoodPanels" unique_id=681601749 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.2, 10)
+
+[node name="LongFloor28" parent="WoodPanels" unique_id=1492870832 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.2, 16)
+
+[node name="LongFloor29" parent="WoodPanels" unique_id=1519442871 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.2, 8)
+
+[node name="LongFloor30" parent="WoodPanels" unique_id=1781944230 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.2, 18)
+
+[node name="LongFloor31" parent="WoodPanels" unique_id=1086108410 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.2, -12)
+
+[node name="LongFloor32" parent="WoodPanels" unique_id=382586125 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.2, -10)
+
+[node name="LongFloor33" parent="WoodPanels" unique_id=1447320933 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.2, -14)
+
+[node name="LongFloor34" parent="WoodPanels" unique_id=1369432594 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.2, -8)
+
+[node name="LongFloor35" parent="WoodPanels" unique_id=1581174699 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.2, -16)
+
+[node name="LongFloor36" parent="WoodPanels" unique_id=145318473 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.2, -6)
+
+[node name="LongFloor37" parent="WoodPanels" unique_id=1127806850 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.2, 0)
+
+[node name="LongFloor38" parent="WoodPanels" unique_id=314033119 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.2, 2)
+
+[node name="LongFloor39" parent="WoodPanels" unique_id=807282403 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.2, -2)
+
+[node name="LongFloor40" parent="WoodPanels" unique_id=803002275 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.2, 4)
+
+[node name="LongFloor41" parent="WoodPanels" unique_id=697337562 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.2, -4)
+
+[node name="LongFloor42" parent="WoodPanels" unique_id=2110269684 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.2, 6)
+
+[node name="LongFloor43" parent="WoodPanels" unique_id=1152328827 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.2, 12)
+
+[node name="LongFloor44" parent="WoodPanels" unique_id=977479793 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.2, 14)
+
+[node name="LongFloor45" parent="WoodPanels" unique_id=1094316498 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.2, 10)
+
+[node name="LongFloor46" parent="WoodPanels" unique_id=1469343220 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.2, 16)
+
+[node name="LongFloor55" parent="WoodPanels" unique_id=1075403311 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.2, 20)
+
+[node name="LongFloor56" parent="WoodPanels" unique_id=222520691 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.2, 20)
+
+[node name="LongFloor57" parent="WoodPanels" unique_id=241643866 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.2, 20)
+
+[node name="LongFloor47" parent="WoodPanels" unique_id=1674489635 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.2, 8)
+
+[node name="LongFloor48" parent="WoodPanels" unique_id=1208849026 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.2, 18)
+
+[node name="LongFloor49" parent="WoodPanels" unique_id=1317084581 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.2, -12)
+
+[node name="LongFloor50" parent="WoodPanels" unique_id=3443597 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.2, -10)
+
+[node name="LongFloor51" parent="WoodPanels" unique_id=149375921 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.2, -14)
+
+[node name="LongFloor58" parent="WoodPanels" unique_id=1848309654 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, -0.2, -18)
+
+[node name="LongFloor59" parent="WoodPanels" unique_id=1475088544 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, -0.2, -18)
+
+[node name="LongFloor60" parent="WoodPanels" unique_id=713379901 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.2, -18)
+
+[node name="LongFloor52" parent="WoodPanels" unique_id=1813900194 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.2, -8)
+
+[node name="LongFloor53" parent="WoodPanels" unique_id=1366274531 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.2, -16)
+
+[node name="LongFloor61" parent="WoodPanels" unique_id=448713377 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.2, -20)
+
+[node name="LongFloor62" parent="WoodPanels" unique_id=250932816 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -0.2, -20)
+
+[node name="LongFloor63" parent="WoodPanels" unique_id=55728788 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, -0.2, -20)
+
+[node name="LongFloor54" parent="WoodPanels" unique_id=211283597 instance=ExtResource("3_oa1go")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.2, -6)
+
+[node name="table" parent="." unique_id=1304506977 instance=ExtResource("4_tbmy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.837, 0, 0)
+
+[node name="GUN" parent="." unique_id=929443146 instance=ExtResource("5_jk1qb")]
+transform = Transform3D(-0.25, 0, 2.1855694e-08, 0, 0.25, 0, -2.1855694e-08, 0, -0.25, 0.51071477, 0.89686024, 0)
+script = ExtResource("6_rtw2f")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=688173872]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1531749678]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control" unique_id=763559323]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 50
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer" unique_id=161116682]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_lgwnu")
+theme_override_font_sizes/font_size = 48
+text = "Rick O. Shay's
+Revenge"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control" unique_id=829755287]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 41.0
+offset_bottom = 20.0
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer2" unique_id=448502665]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/MarginContainer2/VBoxContainer" unique_id=2080979007]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_lgwnu")
+theme_override_font_sizes/font_size = 24
+text = "Play"
+
+[node name="Button2" type="Button" parent="CanvasLayer/Control/MarginContainer2/VBoxContainer" unique_id=1036455969]
+visible = false
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_lgwnu")
+theme_override_font_sizes/font_size = 24
+text = "Quit"
